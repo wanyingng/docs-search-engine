@@ -9,3 +9,8 @@ dependencies = [
     "pytest>=9.0.2",
     "requests>=2.31.0",
 ]
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests (select with '-m integration')",
+]
