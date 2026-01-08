@@ -1,6 +1,8 @@
 # Documentation Search Engine
 
-A custom Model Context Protocol (MCP) server that acts as a documentation search engine. This project attempts to build a simple, personal clone of [Context7](https://context7.com), unlocking the capability to access up-to-date documentation from GitHub repositories and web pages directly within your AI assistant's context.
+A custom Model Context Protocol (MCP) server that acts as a documentation search engine. 
+
+This project attempts to build a simple, personal clone of [Context7](https://context7.com), unlocking the capability to access up-to-date documentation from GitHub repositories and web pages directly within your AI assistant's context.
 
 ## 🛠️ Tech Stack
 
