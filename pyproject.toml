@@ -8,6 +8,7 @@ dependencies = [
     "fastmcp>=2.14.2",
     "pytest>=9.0.2",
     "requests>=2.31.0",
+    "minsearch>=0.0.3",
 ]
 
 [tool.pytest.ini_options]

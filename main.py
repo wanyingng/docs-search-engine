@@ -1,5 +1,10 @@
 from fastmcp import FastMCP
 from scrape_web import scrape_web as scrape_web_func, WebScraperError
+from search import (
+    get_cached_index,
+    search as search_index,
+    SearchError,
+)
 
 mcp = FastMCP("Documentation Search Engine")
 
@@ -57,5 +62,48 @@ def count_word_occurrences(url: str, word: str, case_insensitive: bool = True) -
     }
 
 
+@mcp.tool
+def search_docs(
+    query: str,
+    zip_url: str = "https://github.com/jlowin/fastmcp/archive/refs/heads/main.zip",
+    num_results: int = 5
+) -> list:
+    """
+    Search documentation from a GitHub repository zip file.
+    
+    This tool downloads documentation from a GitHub repository (as a zip),
+    indexes the markdown files, and returns the most relevant documents
+    matching the query. The index is cached for subsequent searches.
+    
+    Args:
+        query: The search query string.
+        zip_url: URL to the GitHub zip file (default: FastMCP docs).
+                 Format: https://github.com/{owner}/{repo}/archive/refs/heads/{branch}.zip
+        num_results: Maximum number of results to return (default: 5).
+        
+    Returns:
+        A list of matching documents with filename and content preview.
+        
+    Examples:
+        # Search FastMCP docs (default)
+        search_docs("demo")
+        
+        # Search minsearch docs
+        search_docs("index", zip_url="https://github.com/alexeygrigorev/minsearch/archive/refs/heads/main.zip")
+    """
+    index = get_cached_index(zip_url)
+    results = search_index(index, query, num_results=num_results)
+    
+    # Return simplified results with filename and content preview
+    return [
+        {
+            "filename": doc["filename"],
+            "content_preview": doc["content"][:500] + "..." if len(doc["content"]) > 500 else doc["content"]
+        }
+        for doc in results
+    ]
+
+
 if __name__ == "__main__":
     mcp.run()
+
