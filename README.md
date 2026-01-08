@@ -53,6 +53,24 @@ Add the following configuration to your MCP client settings (e.g., `mcp_config.j
 
 > **Note**: Replace `C:/Users/username/path/to/docs-search-engine` with the actual absolute path to your project directory.
 
+## 💡 Example Usage
+
+Once the MCP server is connected to your AI assistant (e.g., VSCode, Claude, Cursor, Antigravity), you can use natural language to interact with it.
+
+**1. Search Documentation**
+
+> "Search for 'context' in the FastMCP docs."
+
+> "Find information about 'indexing' in the minsearch documentation (zip url: https://github.com/alexeygrigorev/minsearch/archive/refs/heads/main.zip)."
+
+**2. Scrape Web Pages**
+
+> "Scrape the content of https://example.com/blog/article and summarize it."
+
+**3. Count Word Occurrences**
+
+> "Count how many times the word 'LLM' appears on https://example.com/ai-trends."
+
 ## 💻 Setup & Execution
 
 ### Prerequisites
