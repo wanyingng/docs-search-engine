@@ -447,9 +447,14 @@ class TestGetCachedIndex:
 class TestIntegration:
     """Integration tests with real files."""
     
+    def teardown_method(self):
+        """Clear the cache after each test."""
+        _index_cache.clear()
+    
     @pytest.mark.integration
-    def test_full_workflow(self, tmp_path):
-        """Test the complete workflow: create zip, extract, index, search."""
+    @patch('search.download_zip')
+    def test_full_workflow(self, mock_download, tmp_path):
+        """Test the complete workflow using get_cached_index."""
         # Create a test zip file
         zip_path = tmp_path / "test_docs.zip"
         
@@ -458,13 +463,16 @@ class TestIntegration:
             zf.writestr("project-main/docs/guide.md", "# Guide\nA comprehensive user guide")
             zf.writestr("project-main/README.md", "# Project\nProject overview and demo")
         
-        # Extract files
-        documents = extract_md_files(str(zip_path))
-        assert len(documents) == 3
+        # Mock download_zip to return our local file
+        mock_download.return_value = str(zip_path)
         
-        # Build index
-        index = build_index(documents)
+        # Use get_cached_index with a dummy URL
+        dummy_url = "https://example.com/test_docs.zip"
+        index = get_cached_index(dummy_url)
+        
+        # Verify index was built and cached
         assert index is not None
+        assert dummy_url in _index_cache
         
         # Search
         results = search(index, "demo", num_results=5)
@@ -473,6 +481,9 @@ class TestIntegration:
         # Verify demo-related docs are in results
         filenames = [r['filename'] for r in results]
         assert any("demo" in f.lower() or "readme" in f.lower() for f in filenames)
+
+        # Verify download was called
+        mock_download.assert_called_once_with(dummy_url, ".")
 
 
 if __name__ == "__main__":
