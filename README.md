@@ -1,6 +1,6 @@
 # Documentation Search Engine
 
-A custom Model Context Protocol (MCP) server that acts as a documentation search engine. 
+A custom Model Context Protocol (MCP) server that acts as a documentation search engine.
 
 This project attempts to build a simple, personal clone of [Context7](https://context7.com), unlocking the capability to access up-to-date documentation from GitHub repositories and web pages directly within your AI assistant's context.
 
@@ -9,7 +9,7 @@ This project attempts to build a simple, personal clone of [Context7](https://co
 - **Python**: Core programming language.
 - **FastMCP**: Framework for building MCP servers easily.
 - **minsearch**: Lightweight, in-memory full-text search engine.
-- **uv**: Fast Python package manager.
+- **uv**: Fast Python package and environment manager.
 - **Jina Reader**: For turning web pages into LLM-friendly markdown.
 - **requests**: For handling HTTP requests and downloading zip files.
 - **pytest**: For comprehensive testing.
@@ -92,12 +92,12 @@ Once the MCP server is connected to your AI assistant (e.g., VSCode, Claude, Cur
 
 1.  Clone the repository and navigate to the directory:
 
-    ```powershell
+    ```bash
     cd docs-search-engine
     ```
 
 2.  Install dependencies:
-    ```powershell
+    ```bash
     uv sync
     ```
 
@@ -105,7 +105,7 @@ Once the MCP server is connected to your AI assistant (e.g., VSCode, Claude, Cur
 
 To run the server manually for debugging:
 
-```powershell
+```bash
 uv run main.py
 ```
 
@@ -113,7 +113,7 @@ uv run main.py
 
 Run the comprehensive test suite to ensure everything is working correctly:
 
-```powershell
+```bash
 # Run all tests
 uv run pytest -v
 
